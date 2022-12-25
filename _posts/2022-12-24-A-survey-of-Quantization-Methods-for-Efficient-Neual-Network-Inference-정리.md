@@ -198,7 +198,10 @@ Accuracy가 높은 large model에서 생성한 output을 이용해서 quantizati
 Quantization의 가장 극단적인 경우는 1-bit representation (Binarization)이다. 이 방법은 memory 사용량을 32배 줄여줄 뿐만 아니라, bit-wise arithmetic을 사용해서 binary (1-bit) and ternary (2-bit) 연산을 가속할 수 있다. 예를들어 NVIDIA V100 GPU에서 peak binary arithmetic은 INT8보다 8배 빠르다. 하지만 단순히 binarization을 적용하면 accuracy 감소현상이 심하기 때문에 binarization을 잘하는 방법을 연구하고있다.
 
 [BinaryConnect](https://proceedings.neurips.cc/paper/2015/file/3e15cc11f979ed25912dff5b0669f2cd-Paper.pdf)는 파라미터를 실수값으로 저장하는데, forward와 backward pass를 할 때만 sign값을 기준으로 +1과 -1을 할당해서 연산을 한다. Sign 함수가 미분 불가능하기 때문에 STE estimator를 사용해서 gradient를 근사한다. Binarized NN은 파라미터 뿐만아니라 activation까지도 binarization을 적용하는 방법이다. 이를 통해 latency를 낮추었다. [Binary Weight Network (BWN)](https://arxiv.org/pdf/1705.09283.pdf)은 scale factor를 추가해서 $+\alpha, -\alpha$로 binarization을 수행하는 방법이다. 이때 $\alpha$를 결정할 떄 다음과 같은 최적화 문제를 푼다.
-$$\alpha, B=\operatorname{argmin}\|W-\alpha B\|^2  \tag{7}$$
+
+
+$$\alpha, B=\operatorname{argmin}\|W-\alpha B\|^2  \label{(7)}$$
+
 
 위의 방법으로 학습한 weight가 0에 가깝다는 관찰을 바탕으로, binarization 대신 tenarization (+1, 0, -1)을 적용하는 방법도 있다. 이 방법은 binarization보다 행렬곱 연산속도를 줄여주기 때문에 inference latency가 감소한다.
 
