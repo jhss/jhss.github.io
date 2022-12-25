@@ -1,7 +1,7 @@
 ---
 title: "A survey of Quantization Methods for Efficient Neural Network 정리"
 author: juhong
-#mathjax: true
+mathjax: true
 comments: true
 categories: [Model Compression, Quantization]
 tags: [Model Compression, Quantization]
