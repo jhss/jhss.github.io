@@ -1,8 +1,12 @@
 ---
 layout: default
+comments: true
 ---
 
 {% include assets-origin.html %}
+{% if page.comments != false %}
+	    {% include disqus_comments.html %}
+{% endif %}
 
 <div class="row">
 
