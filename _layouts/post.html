@@ -10,6 +10,10 @@ tail_includes:
   - comments
 ---
 {% include mathjax.html %}
+{% if page.comments != false %}
+	    {% include disqus_comments.html %}
+{% endif %}
+
 <h1 data-toc-skip>{{ page.title }}</h1>
 
 <div class="post-meta text-muted">
@@ -101,9 +105,7 @@ tail_includes:
   {{ content }}
 </div>
 
-{% if page.comments != false %}
-	    {% include disqus_comments.html %}
-{% endif %}  
+
 
 <div class="post-tail-wrapper text-muted">
 
