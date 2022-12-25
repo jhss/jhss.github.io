@@ -198,3 +198,7 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+disqus:
+  comments: true
+  shortname: 'jhss-github-io'
