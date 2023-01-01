@@ -103,7 +103,7 @@ PaI 중에서 Sparse Training은 LTH와 SNIP으로 나누어지는데, LTH에서
 
 지금까지 말한 내용을 정리하면, PaI와 PaT를 구분하는 기준은 수렴한 network의 weight를 그대로 사용할지 아니면 초기화할지 여부이고, Sparse Training과 Sparse Selection을 구분하는 기준은 fine-tuning 유무입니다. 이를 표로 정리하면 다음과 같습니다.                                                                                                                                            
 
-![11.PNG]({{site.url}}/assets/img/11.png)
+![11.PNG]({{site.url}}/assets/img/11.PNG)
 
 이제 LTH와 SNIP에 대해 간단히 살펴보고, Sparse Training과 Sparse Selection에 대해서 자세히 소개하겠습니다.
 
@@ -129,7 +129,7 @@ LTH와 SNIP에서 mask는 학습하는동안 고정되어 (static mask) 있습�
 
 현재 PaI 연구 방향은 Sparse Training과 Sparse Selection으로 나누어집니다. 이걸 Tree 형태로 나타내면 다음 그림과 같습니다.
 
-![12.PNG]({{site.url}}/assets/img/12.png)
+![12.PNG]({{site.url}}/assets/img/12.PNG)
 
 ### **3.2. Sparse Training**
 
