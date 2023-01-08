@@ -7,8 +7,6 @@ categories: [Graph Neural Network]
 tags: [Graph Neural Network]
 ---
 
-# **A Comprehensive Survey on Graph Neural Networks 정리**
-
 ## **1. Introduction**
 
 딥러닝은 Euclidean space에서 표현된 데이터에 대해서 성공적인 성과를 거두었지만, 최근에 non-Euclidean space에서 생성된 데이터에 딥러닝을 적용하려는 시도가 많아지고 있습니다. 본 논문에서는 GNN을 4개의 카테고리 (Recurrent GNN, Convolutional GNN, Graph autoencoder, Spatial-temporal GNN)으로 나누어서 소개하고 있습니다.
@@ -81,7 +79,7 @@ $$\mathbf{h}_v^{(t)}=(1-\alpha) \mathbf{h}_v^{(t-1)}+\alpha \mathbf{W}_{\mathbf{
 
 ConvGNN은 RecGNN과 관련이 깊습니다. 하나의 contraction 함수를 여러 layer에 반복적으로 적용하는 대신에, ConvGNN에서는 각 layer마다 다른 파라미터를 사용합니다.
 
-![35.PNG]({{site.url}}/assets/img/35.png)
+![35.PNG]({{site.url}}/assets/img/35.png){: width="500" height="500"}
 
 ConvGNN의 장점은 graph convolution 연산이 다른 뉴럴네트워크를 조합해서 사용하는 것보다 효율적이고 편리하기 때문입니다. 이로 인해 ConvGNN에 대한 관심이 최근에 증가했습니다.
 
@@ -207,7 +205,7 @@ $S_{\mathcal{N}(v)}$는 노드 $v$의 이웃 노드의 랜덤 샘플입니다. �
 
 **Graph Attention Network (GAT)**는 주변 노드들이 중심노드에 업데이트하는 비율이 동일하지 않고,미리 정해져 있지도 않습니다.
 
-![36.PNG]({{site.url}}/assets/img/36.png)
+![36.PNG]({{site.url}}/assets/img/36.png){: width="500" height="500"}
 
 GCN은 업데이트 비율이 미리 정해져있고 GraphSage에서는 주변노드 반영비율이 모두 동일한데, GAT에서는 attention mechanism을 통해 각 노드의 반영비율이 유동적으로 모두 다르게 설정합니다.
 
