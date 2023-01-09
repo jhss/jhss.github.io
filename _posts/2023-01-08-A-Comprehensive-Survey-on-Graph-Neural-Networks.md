@@ -97,9 +97,9 @@ $$\begin{aligned}\mathbf{x} *_G \mathbf{g} & =\mathscr{F}^{-1}(\mathscr{F}(\math
 
 $$\mathbf{x} *_G \mathbf{g}_\theta=\mathbf{U g}_\theta \mathbf{U}^T \mathbf{x}$$
 
-Spectral 기반 ConvGNN은 모두 위의 정의를 따르고, $\mathbf{g}_{\theta}$를 어떻게 선택하는지에 따라 차이가 있습니다.
+Spectral 기반 ConvGNN은 모두 위의 정의를 따르고, $$\mathbf{g}_{\theta}$$를 어떻게 선택하는지에 따라 차이가 있습니다.
 
-**Spectral Convolutional Neural Network (Spectral CNN)**에서는 filter를 $$\mathbf{g}_\theta=\boldsymbol{\Theta}_{i, j}^{(k)}$$으로 두고, graph convolutional layer를 다음과 같이 나타냅니다.
+**Spectral Convolutional Neural Network (Spectral CNN)**에서는 filter를 $$\mathbf{g}_\theta=\boldsymbol{\Theta}_{i, j}^{(k)}$$ 으로 두고, graph convolutional layer를 다음과 같이 나타냅니다.
 
 $$\mathbf{H}_{:, j}^{(k)}=\sigma\left(\sum_{i=1}^{f_{k-1}} \mathbf{U} \boldsymbol{\Theta}_{i, j}^{(k)} \mathbf{U}^T \mathbf{H}_{:, i}^{(k-1)}\right) \quad\left(j=1,2, \cdots, f_k\right)$$
 
