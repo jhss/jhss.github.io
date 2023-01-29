@@ -59,7 +59,7 @@ $$\mathbf{T}_i^D=\mathbf{Q}^{\operatorname{map}}\left(\mathbf{T}_i^Q\right) \cdo
 
 Dynamic quantization은 quantization을 적용하는 값의 크기가 클때나 작을 때 quantization error를 줄이는 기법입니다. 고정된 exponent, fraction을 사용하는 대신에 값에따라 exponent와 fraction을 변화시킵니다.
 
-![50.PNG]({{site.url}}/assets/img/50.png){: width="300" height="300"}
+![50.PNG]({{site.url}}/assets/img/50.PNG){: width="300" height="300"}
 
 위의 그림 처럼 4개의 부분으로 나뉘는데, indicator bit를 통해 exponent와 fraction을 조절합니다. Indicator bit는 sign bit이후에 처음으로 1로 세팅되는 bit입니다. 일반적인 linear quantization 방법과 비교해서 quantization error가 낮다는 장점이 있지만, 대상이 되는 값의 범위가 $$[-1.0,1.0]$$안에 있어야 해서 absolute max normalization 과정이 필요합니다.
 
@@ -81,7 +81,7 @@ NLP에서 사용하는 일반적인 Embedding layer와 유사한데, 차이점�
 
 ### **3.4. Summary**
 
-![53.PNG]({{site.url}}/assets/img/53.png){: width="700" height="700"}
+![53.PNG]({{site.url}}/assets/img/53.PNG){: width="700" height="700"}
 
 지금까지 제시한 방법을 정리하면 위와 같습니다. 왼쪽 quantization 과정을 보면 Optimizer state를 block 단위로 나누고, block 안에서 absolute maximum 값을 통해 normalization을 수행합니다. 그 후에 Dynamic quantization을 통해 normalized value와 가장 가까운 8-bit value를 찾습니다. 그렇게 찾은 8-bit value에 대응하는 index를 저장하는 과정을 거칩니다. Dequantization 과정은 앞에서 구한 index를 이용해서 lookup table을 통해 8-bit value를 얻고, denomalization 과정을 거쳐 원래 값을 복원합니다.
 
@@ -91,14 +91,14 @@ NLP에서 사용하는 일반적인 Embedding layer와 유사한데, 차이점�
 
 실험에서는 Adam, AdamW, Momentum을 기준으로 비교를 했고, 하이퍼파라미터나 weight, gradient, activation의 precision을 변경하지 않은 채 Adam, AdamW, Momentum을 기준으로 비교를 했습니다.
 
-![51.PNG]({{site.url}}/assets/img/51.png){: width="550" height="550"}
+![51.PNG]({{site.url}}/assets/img/51.PNG){: width="550" height="550"}
 
 위에 표는 여러 task에서 8-bit optimizer를 사용했을 때 성능이 변하지 않은 채 학습 시간과 모델 크기가 줄어들었다는 것을 보여주는 실험결과입니다. Momentum을 기준으로는 변화가 크지 않지만, Adam을 기준으로 비교했을 때는 학습시간과 필요한 메모리 크기가 꽤 많이 줄어들었다는 것을 볼 수 있습니다.
 
 
 ### **4.2. Ablation Analysis**
 
-![52.PNG]({{site.url}}/assets/img/52.png){: width="500" height="500"}
+![52.PNG]({{site.url}}/assets/img/52.PNG){: width="500" height="500"}
 
 작은 언어모델과 큰 언어모델의 perplexity와 학습 안정성을 기준으로 ablation study를 진행했습니다. Stability는 하이퍼 파라미터를 다르게 바꾸면서 학습했을 때 모델의 성능이 어느정도 되는지를 기준으로 측정했습니다. 표를 보시면 작은 스케일 모델에서는 Dynamic quantization, block-wise quantization 영향은 거의 없고, stable embedding을 사용했을 떄 학습 안정성이 증가했습니다. 큰 스케일 모델에서는 Dynamic quantization, Block-wise quantization 영향이 중요하다는 걸 보여주고 있습니다.
 
