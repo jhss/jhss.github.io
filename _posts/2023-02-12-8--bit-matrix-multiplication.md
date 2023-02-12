@@ -15,11 +15,11 @@ Large pre-trained 언어모델에 대해서 8-bit quantization을 적용하는 �
 
 Transformer에서만 관측되는 특이한 현상을 분석하기 위해서 논문에서는 13B parameter를 가진 모델에 대해서 feature 차원의 크기를 비교했고, 값이 6보다 큰 feature를 outlier로 간주했습니다. 그리고 실험을 할 때 특정 library에 있는 오류로 인한 영향을 없애기 위해서 3개의 software(OpenAI, Fairseq, EleutherAI)에 구현된 GPT-2 model을 모두 사용해서 실험을 진행했습니다.
 
-![57.PNG]({{site.url}}/assets/img/57.png){: width="600" height="600"}
+![57.PNG]({{site.url}}/assets/img/57.PNG){: width="600" height="600"}
 
 위의 그림 (a)는 모델 파라미터 수를 늘림에따라 outlier로 인해 영향을 받는 sequence의 비율을 측정한 것입니다. 예를들어 sequence의 i번째 단어에 특정 차원에 outlier가 등장했는데, 해당 outlier가 다른 단어에 얼마나 영향을 끼치는지를 측정한 값입니다. 그림을 보면 파라미터 수가 6B에서 6.5B로 넘어갈 때 영향을 받는 비율이 급격히 증가한다는 것을 볼 수 있습니다.
 
-![56.PNG]({{site.url}}/assets/img/56.png){: width="700" height="700"}
+![56.PNG]({{site.url}}/assets/img/56.PNG){: width="700" height="700"}
 
 위에 그림 (a)에서는 perplexity가 감소할수록 outlier feature의 median magnitude값이 커지는 것을 관찰할 수 있는데, 이로 인해 transformer에 Int8 quantization을 적용했을 때 성능이 좋지 않습니다. 왜냐하면 특정 feature의 값이 커지면 quantization range가 커져서 대부분 quantization bin은 비어있는 상태가 되고, 원래 값이 작았던 feature는 0에 가까운 값으로 quantization이 진행되기 때문에 정보 손실이 많이 발생하게 됩니다. 또한 Int8 quantization 뿐만 아니라 16-bit quantization 방법도 마찬가지로 6.7B scale을 넘어가면 outlier로 인해 잘 작동하지 않을 것이라고 논문에서 주장합니다.
 
@@ -66,12 +66,12 @@ $$\mathbf{C}_{f 16} \approx \sum_{h \in O} \mathbf{X}_{f 16}^h \mathbf{W}_{f 16}
 
 이 논문에서는 2개의 실험을 했는데 large scale transformer에 대해서 language modeling 성능과 zero shot accuracy 성능을 기존의 quantization 기법과 비교했습니다. 먼저 Language Modeling 성능은 파라미터 수를 점점 증가시킴에 따라 perplexity 값을 기존의 quantization 기법과 비교를 하는 방식으로 진행했습니다. 데이터는 C4 corpus validation data를 사용했습니다.
 
-![58.PNG]({{site.url}}/assets/img/58.png){: width="500" height="500"}
+![58.PNG]({{site.url}}/assets/img/58.PNG){: width="500" height="500"}
 
 실험 결과를 보면 다른 quantization 기법들은 6.7B scale 이후에 fp32와 비교해서 perplexity 값이 커졌다는 결과가 나타나는데, 논문에서 제시한 방법은 fp32와 비교해서도 perplexity 값이 거의 차이가 나지 않는 결과가 나타났습니다.
 
 
-![54.PNG]({{site.url}}/assets/img/54.png){: width="500" height="500"}
+![54.PNG]({{site.url}}/assets/img/54.PNG){: width="500" height="500"}
 
 그 다음에 OPT model을 사용해서 zero shot accuracy 성능을 비교했는데, 그림을 보면 스케일이 2.7B보다 작을 때는 기존의 8-bit quantization 기법과 논문에서 제시한 기법이 성능이 비슷하지만, 6.7B 정도 스케일이 되었을 때는 성능 차이가 많이 나는 결과가 나타났습니다.
 
