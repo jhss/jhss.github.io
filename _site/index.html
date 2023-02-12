@@ -507,6 +507,67 @@ Large pre-trained 언어모델에 대해서 8-bit quantization을 적용하는 �
 
   <div class="post-preview">
     <h1>
+      <a href="/posts/8-bit-optimizer/">8-bit Optimizers via Block-wise Quantization 정리</a>
+    </h1>
+
+    <div class="post-content">
+      <p>
+        
+
+
+
+
+
+        1. Introduction
+
+Momentum이나 Adam optimizer는 시간에 따른 gradient 통계량 정보를 이용해서 다음 그레디언트를 업데이트할 때 그레디언트의 방향을 조절하거나 학습률을 조절합니다. 이런 방식은 일반적인 SGD optimizer에 비해서 학습을 가속화 시켜준다는 장점이 있지만, gradient 통계량 정보를 계속 가지고...
+      </p>
+    </div>
+
+    <div class="post-meta text-muted d-flex">
+      <div class="mr-auto">
+
+        <!-- posted date -->
+        <i class="far fa-calendar fa-fw"></i>
+        <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1674918000"
+    data-df="ll"
+    >
+  Jan 29, 2023
+</em>
+
+
+        <!-- categories -->
+        
+          <i class="far fa-folder-open fa-fw"></i>
+          <span>
+          
+            Model Compression,
+            Quantization
+          </span>
+        
+
+      </div>
+
+      
+
+    </div> <!-- .post-meta -->
+
+  </div> <!-- .post-review -->
+
+
+
+  <div class="post-preview">
+    <h1>
       <a href="/posts/Sparsity-in-Deep-Learning-Pruning-and-growth/">Sparsity in Deep Learning: Pruning and growth for efficient inference and training in neural networks 정리 (Chapter 1 ~ 3)</a>
     </h1>
 
@@ -843,6 +904,16 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
         
         
         
+      <li><a href="/posts/8-bit-optimizer/">8-bit Optimizers via Block-wise Quantization 정리</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/8-bit-matrix-multiplication/">LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale 정리</a></li>
+      
+        
+        
+        
       <li><a href="/posts/Sparsity-in-Deep-Learning-Pruning-and-growth/">Sparsity in Deep Learning: Pruning and growth for efficient inference and training in neural networks 정리 (Chapter 1 ~ 3)</a></li>
       
         
@@ -905,6 +976,11 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
     
     
     
+  
+    
+    
+    
+    
       
         
         
@@ -918,13 +994,6 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
     
     
     
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -955,10 +1024,10 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
       <a class="post-tag" href="/tags/model-compression/">Model Compression</a>
     
       
-      <a class="post-tag" href="/tags/pruning/">Pruning</a>
+      <a class="post-tag" href="/tags/quantization/">Quantization</a>
     
       
-      <a class="post-tag" href="/tags/quantization/">Quantization</a>
+      <a class="post-tag" href="/tags/pruning/">Pruning</a>
     
       
       <a class="post-tag" href="/tags/graph-neural-network/">Graph Neural Network</a>
@@ -1031,6 +1100,11 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
     
     
     
+  
+    
+    
+    
+    
       
         
         
@@ -1044,13 +1118,6 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
     
     
     
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1081,10 +1148,10 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
       <a class="post-tag" href="/tags/model-compression/">Model Compression</a>
     
       
-      <a class="post-tag" href="/tags/pruning/">Pruning</a>
+      <a class="post-tag" href="/tags/quantization/">Quantization</a>
     
       
-      <a class="post-tag" href="/tags/quantization/">Quantization</a>
+      <a class="post-tag" href="/tags/pruning/">Pruning</a>
     
       
       <a class="post-tag" href="/tags/graph-neural-network/">Graph Neural Network</a>

@@ -49,7 +49,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale 정리" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Juhong Song","url":"https://github.com/jhss"},"dateModified":"2023-02-12T00:00:00+09:00","datePublished":"2023-02-12T00:00:00+09:00","description":"1. Introduction","headline":"LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale 정리","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/8-bit-matrix-multiplication/"},"url":"http://localhost:4000/posts/8-bit-matrix-multiplication/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Juhong Song","url":"https://github.com/jhss"},"dateModified":"2023-02-12T23:25:44+09:00","datePublished":"2023-02-12T00:00:00+09:00","description":"1. Introduction","headline":"LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale 정리","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/8-bit-matrix-multiplication/"},"url":"http://localhost:4000/posts/8-bit-matrix-multiplication/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -998,6 +998,26 @@
 
     <!-- lastmod date -->
     
+    <span>
+      Updated
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1676211944"
+    data-df="ll"
+    data-toggle="tooltip" data-placement="bottom">
+  Feb 12, 2023
+</em>
+
+    </span>
+    
 
   
 
@@ -1060,11 +1080,11 @@
 
 <p>Transformer에서만 관측되는 특이한 현상을 분석하기 위해서 논문에서는 13B parameter를 가진 모델에 대해서 feature 차원의 크기를 비교했고, 값이 6보다 큰 feature를 outlier로 간주했습니다. 그리고 실험을 할 때 특정 library에 있는 오류로 인한 영향을 없애기 위해서 3개의 software(OpenAI, Fairseq, EleutherAI)에 구현된 GPT-2 model을 모두 사용해서 실험을 진행했습니다.</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3C/svg%3E" data-src="http://localhost:4000/assets/img/57.png" alt="57.PNG" width="600" height="600" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3C/svg%3E" data-src="http://localhost:4000/assets/img/57.PNG" alt="57.PNG" width="600" height="600" data-proofer-ignore></p>
 
 <p>위의 그림 (a)는 모델 파라미터 수를 늘림에따라 outlier로 인해 영향을 받는 sequence의 비율을 측정한 것입니다. 예를들어 sequence의 i번째 단어에 특정 차원에 outlier가 등장했는데, 해당 outlier가 다른 단어에 얼마나 영향을 끼치는지를 측정한 값입니다. 그림을 보면 파라미터 수가 6B에서 6.5B로 넘어갈 때 영향을 받는 비율이 급격히 증가한다는 것을 볼 수 있습니다.</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 700'%3E%3C/svg%3E" data-src="http://localhost:4000/assets/img/56.png" alt="56.PNG" width="700" height="700" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 700'%3E%3C/svg%3E" data-src="http://localhost:4000/assets/img/56.PNG" alt="56.PNG" width="700" height="700" data-proofer-ignore></p>
 
 <p>위에 그림 (a)에서는 perplexity가 감소할수록 outlier feature의 median magnitude값이 커지는 것을 관찰할 수 있는데, 이로 인해 transformer에 Int8 quantization을 적용했을 때 성능이 좋지 않습니다. 왜냐하면 특정 feature의 값이 커지면 quantization range가 커져서 대부분 quantization bin은 비어있는 상태가 되고, 원래 값이 작았던 feature는 0에 가까운 값으로 quantization이 진행되기 때문에 정보 손실이 많이 발생하게 됩니다. 또한 Int8 quantization 뿐만 아니라 16-bit quantization 방법도 마찬가지로 6.7B scale을 넘어가면 outlier로 인해 잘 작동하지 않을 것이라고 논문에서 주장합니다.</p>
 
@@ -1110,11 +1130,11 @@
 
 <p>이 논문에서는 2개의 실험을 했는데 large scale transformer에 대해서 language modeling 성능과 zero shot accuracy 성능을 기존의 quantization 기법과 비교했습니다. 먼저 Language Modeling 성능은 파라미터 수를 점점 증가시킴에 따라 perplexity 값을 기존의 quantization 기법과 비교를 하는 방식으로 진행했습니다. 데이터는 C4 corpus validation data를 사용했습니다.</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3C/svg%3E" data-src="http://localhost:4000/assets/img/58.png" alt="58.PNG" width="500" height="500" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3C/svg%3E" data-src="http://localhost:4000/assets/img/58.PNG" alt="58.PNG" width="500" height="500" data-proofer-ignore></p>
 
 <p>실험 결과를 보면 다른 quantization 기법들은 6.7B scale 이후에 fp32와 비교해서 perplexity 값이 커졌다는 결과가 나타나는데, 논문에서 제시한 방법은 fp32와 비교해서도 perplexity 값이 거의 차이가 나지 않는 결과가 나타났습니다.</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3C/svg%3E" data-src="http://localhost:4000/assets/img/54.png" alt="54.PNG" width="500" height="500" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3C/svg%3E" data-src="http://localhost:4000/assets/img/54.PNG" alt="54.PNG" width="500" height="500" data-proofer-ignore></p>
 
 <p>그 다음에 OPT model을 사용해서 zero shot accuracy 성능을 비교했는데, 그림을 보면 스케일이 2.7B보다 작을 때는 기존의 8-bit quantization 기법과 논문에서 제시한 기법이 성능이 비슷하지만, 6.7B 정도 스케일이 되었을 때는 성능 차이가 많이 나는 결과가 나타났습니다.</p>
 
@@ -1274,6 +1294,16 @@
         
         
         
+      <li><a href="/posts/8-bit-optimizer/">8-bit Optimizers via Block-wise Quantization 정리</a></li>
+      
+        
+        
+        
+      <li><a href="/posts/8-bit-matrix-multiplication/">LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale 정리</a></li>
+      
+        
+        
+        
       <li><a href="/posts/Sparsity-in-Deep-Learning-Pruning-and-growth/">Sparsity in Deep Learning: Pruning and growth for efficient inference and training in neural networks 정리 (Chapter 1 ~ 3)</a></li>
       
         
@@ -1336,6 +1366,11 @@
     
     
     
+  
+    
+    
+    
+    
       
         
         
@@ -1349,13 +1384,6 @@
     
     
     
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1386,10 +1414,10 @@
       <a class="post-tag" href="/tags/model-compression/">Model Compression</a>
     
       
-      <a class="post-tag" href="/tags/pruning/">Pruning</a>
+      <a class="post-tag" href="/tags/quantization/">Quantization</a>
     
       
-      <a class="post-tag" href="/tags/quantization/">Quantization</a>
+      <a class="post-tag" href="/tags/pruning/">Pruning</a>
     
       
       <a class="post-tag" href="/tags/graph-neural-network/">Graph Neural Network</a>
@@ -1503,6 +1531,19 @@
   
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
 
 
 
@@ -1564,6 +1605,45 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
       
       
       <div class="card">
+        <a href="/posts/8-bit-optimizer/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1674918000"
+    data-df="ll"
+    >
+  Jan 29, 2023
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>8-bit Optimizers via Block-wise Quantization 정리</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                1. Introduction
+
+Momentum이나 Adam optimizer는 시간에 따른 gradient 통계량 정보를 이용해서 다음 그레디언트를 업데이트할 때 그레디언트의 방향을 조절하거나 학습률을 조절합니다. 이런 방식은 일반적인 SGD optimizer에 비해서 학습을 가속화 시켜준다는 장점이 있지만, gradient 통계량 정보를 계속 가지고...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      
+      
+      <div class="card">
         <a href="/posts/Recent-Advances-on-Neural-Network-Pruning-at-Init/">
           <div class="card-body">
             <!--
@@ -1600,45 +1680,6 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
         </a>
       </div>
     
-      
-      
-      <div class="card">
-        <a href="/posts/Sparsity-in-Deep-Learning-Pruning-and-growth/">
-          <div class="card-body">
-            <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em class="small"
-    data-ts="1674313200"
-    data-df="ll"
-    >
-  Jan 22, 2023
-</em>
-
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>Sparsity in Deep Learning: Pruning and growth for efficient inference and training in neural networks 정리 (Chapter 1 ~ 3)</h3>
-            <div class="text-muted small">
-              <p>
-                
-
-
-
-
-
-                1. Introduction
-
-현대의 딥러닝 모델은 대부분 크기가 커서 메모리를 많이 차지하고 학습과 추론 단계에서 계산량이 많이 필요합니다. 이런 이유 때문에 모델을 경량화 하려는 연구들이 많이 진행 되었고, 그 중 한가지 연구방향이 Sparsification 입니다. Sparsification은 고차원 feature space에서 몇개의 파라미터 ...
-              </p>
-            </div>
-          </div>
-        </a>
-      </div>
-    
     </div> <!-- .card-deck -->
   </div> <!-- #related-posts -->
 
@@ -1651,9 +1692,9 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
 
 <div class="post-navigation d-flex justify-content-between">
   
-  <a href="/posts/Sparsity-in-Deep-Learning-Pruning-and-growth/" class="btn btn-outline-primary"
+  <a href="/posts/8-bit-optimizer/" class="btn btn-outline-primary"
     prompt="Older">
-    <p>Sparsity in Deep Learning: Pruning and growth for efficient inference and training in neural networks 정리 (Chapter 1 ~ 3)</p>
+    <p>8-bit Optimizers via Block-wise Quantization 정리</p>
   </a>
   
 
@@ -1786,6 +1827,11 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
     
     
     
+  
+    
+    
+    
+    
       
         
         
@@ -1799,13 +1845,6 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
     
     
     
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1836,10 +1875,10 @@ Micro-architecture 관점에서는 kernel type을 depth-wise convolution 혹은 
       <a class="post-tag" href="/tags/model-compression/">Model Compression</a>
     
       
-      <a class="post-tag" href="/tags/pruning/">Pruning</a>
+      <a class="post-tag" href="/tags/quantization/">Quantization</a>
     
       
-      <a class="post-tag" href="/tags/quantization/">Quantization</a>
+      <a class="post-tag" href="/tags/pruning/">Pruning</a>
     
       
       <a class="post-tag" href="/tags/graph-neural-network/">Graph Neural Network</a>
